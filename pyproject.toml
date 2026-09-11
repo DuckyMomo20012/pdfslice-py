@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdfslice-py"
+version = "0.1.0"
+description = "Split, gather, and verify PDF <-> page-image sets (Python port of pdfslice)"
+requires-python = ">=3.10"
+license = { file = "LICENSE.md" }
+authors = [{ name = "DuckyMomo20012" }]
+dependencies = [
+    "click>=8.1",
+    "pypdf>=4.0",
+    "pypdfium2>=4.30",
+    "pillow>=10.0",
+]
+
+[project.scripts]
+pdfslice = "pdfslice_py.cli:cli"
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+lint = ["ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "A",   # flake8-builtins
+    "N",   # pep8-naming
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "N815", # camelCase attrs — manifest fields mirror the on-disk JSON schema on purpose
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["N802"] # test_* function names, camelCase-style asserts on manifest fields
+
+[tool.ruff.format]
+quote-style = "double"
