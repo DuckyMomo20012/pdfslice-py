@@ -1,13 +1,14 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]  # >=77 required: SPDX-string `project.license` (PEP 639)
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pdfslice-py"
 version = "1.0.0"
 description = "Split, gather, and verify PDF <-> page-image sets (Python port of pdfslice)"
+readme = "README.md"
 requires-python = ">=3.10"
-license = { file = "LICENSE.md" }
+license = "CC-BY-NC-SA-4.0"
 authors = [{ name = "DuckyMomo20012" }]
 dependencies = [
     "click>=8.1",
@@ -15,6 +16,11 @@ dependencies = [
     "pypdfium2>=4.30",
     "pillow>=10.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/DuckyMomo20012/pdfslice-py"
+Repository = "https://github.com/DuckyMomo20012/pdfslice-py"
+Issues = "https://github.com/DuckyMomo20012/pdfslice-py/issues"
 
 [project.scripts]
 pdfslice = "pdfslice_py.cli:cli"
