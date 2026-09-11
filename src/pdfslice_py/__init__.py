@@ -3,4 +3,4 @@
 Python port of https://github.com/DuckyMomo20012/pdfslice (TypeScript).
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
