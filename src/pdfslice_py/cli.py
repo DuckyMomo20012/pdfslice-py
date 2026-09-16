@@ -1,4 +1,4 @@
-"""CLI. Port of src/app.ts + src/commands/{split,gather,check}/{command,impl}.ts."""
+"""CLI: split, gather, check commands."""
 
 from __future__ import annotations
 

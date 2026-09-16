@@ -1,6 +1,55 @@
 """pdfslice-py: split PDFs into page images, then gather or check them back.
 
-Python port of https://github.com/DuckyMomo20012/pdfslice (TypeScript).
+Usable as a library (`from pdfslice_py import split_all, gather_all`) or as
+the `pdfslice` CLI (`split`/`gather`/`check` subcommands).
 """
 
+from __future__ import annotations
+
+from .discover import find_images_deep, find_pdfs, page_image_name, parse_page_from_image_name
+from .filename_template import DEFAULT_TEMPLATE, FilenameTemplate, compile_template
+from .gather import Action, UnitReport, gather_all
+from .hash import hash_file
+from .logger import Logger, create_logger
+from .manifest import (
+    MANIFEST_FILENAME,
+    Manifest,
+    ManifestImageEntry,
+    manifest_path_for,
+    read_manifest,
+    write_manifest,
+)
+from .split import SplitResult, split_all
+
 __version__ = "1.0.1"
+
+__all__ = [
+    # split
+    "split_all",
+    "SplitResult",
+    # gather / check
+    "gather_all",
+    "UnitReport",
+    "Action",
+    # manifest
+    "Manifest",
+    "ManifestImageEntry",
+    "MANIFEST_FILENAME",
+    "read_manifest",
+    "write_manifest",
+    "manifest_path_for",
+    # discovery
+    "find_pdfs",
+    "find_images_deep",
+    "page_image_name",
+    "parse_page_from_image_name",
+    # filename templating
+    "DEFAULT_TEMPLATE",
+    "FilenameTemplate",
+    "compile_template",
+    # hashing
+    "hash_file",
+    # logging
+    "Logger",
+    "create_logger",
+]

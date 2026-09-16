@@ -1,4 +1,4 @@
-"""File hashing. Direct port of lib/hash.ts."""
+"""File hashing."""
 
 from __future__ import annotations
 

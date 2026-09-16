@@ -1,11 +1,8 @@
 """Rebuild a PDF from split page images, or just check for missing pages.
-Direct port of lib/gather.ts.
 
-pdf-lib's `PDFDocument.create()` + `embedJpg`/`addPage`/`drawImage` at
-image-pixel dimensions (TS) is equivalent here to Pillow saving a multi-page
-PDF from the JPEGs directly with `resolution=72.0`, since both put one
-image pixel per PDF point (i.e. treat the image as if it were 72 DPI),
-regardless of the image's own DPI metadata.
+Pillow saves a multi-page PDF from the JPEGs directly with
+`resolution=72.0`, putting one image pixel per PDF point (i.e. treating the
+image as if it were 72 DPI), regardless of the image's own DPI metadata.
 """
 
 from __future__ import annotations
@@ -22,7 +19,7 @@ from pypdf import PdfReader
 from .discover import find_images_deep, parse_page_from_image_name
 from .filename_template import DEFAULT_TEMPLATE
 from .hash import hash_file
-from .logger import Logger
+from .logger import Logger, create_logger
 from .manifest import Manifest, ManifestImageEntry, manifest_path_for, read_manifest, write_manifest
 
 _PDF_PAGE_RESOLUTION = 72.0  # 1 image pixel == 1 PDF point
@@ -75,11 +72,19 @@ def _find_unit_folders(root: str | Path) -> list[str]:
 
 def gather_all(
     input: str | Path,  # noqa: A002 - mirrors TS `input` option name
-    logger: Logger,
+    logger: Logger | None = None,
     dry_run: bool = False,
     check_only: bool = False,
     backup: bool = True,
 ) -> list[UnitReport]:
+    """Rebuild a PDF from split page images for every unit folder under
+    `input`, or (with `check_only=True`) just report missing pages.
+
+    `logger` is optional for library use — defaults to a quiet-info
+    `Logger` (see `create_logger`) when not provided.
+    """
+    if logger is None:
+        logger = create_logger()
     units = _find_unit_folders(input)
     logger.info(f"Found {len(units)} unit folder(s) under {input}")
 

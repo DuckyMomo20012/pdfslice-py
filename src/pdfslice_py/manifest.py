@@ -1,7 +1,7 @@
-"""Per-unit split manifest. Direct port of lib/manifest.ts.
+"""Per-unit split manifest.
 
-JSON keys are kept camelCase (matching the TypeScript original) so manifest
-files stay readable/interoperable between the two implementations.
+JSON keys are kept camelCase so manifest files stay readable/interoperable
+across tooling that reads them.
 """
 
 from __future__ import annotations

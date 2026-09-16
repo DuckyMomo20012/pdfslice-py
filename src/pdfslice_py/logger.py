@@ -1,9 +1,8 @@
-"""Logging. Port of lib/logger.ts (winston) onto Python's stdlib logging.
+"""Logging, built on Python's stdlib logging.
 
-Call sites use `logger.info("message", key=value, ...)` the way the
-TypeScript original used `logger.info('message', { key: value })` — extra
-keyword arguments are the "meta" object, printed as JSON after the message
-and, if `log_file` is set, also written as a JSON line per record.
+Call sites use `logger.info("message", key=value, ...)` — extra keyword
+arguments are the "meta" object, printed as JSON after the message and, if
+`log_file` is set, also written as a JSON line per record.
 """
 
 from __future__ import annotations
