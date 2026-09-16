@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/DuckyMomo20012/pdfslice-py/compare/v1.0.1...v1.1.0) (2026-09-16)
+
+
+### Features
+
+* support as a lib ([4ece921](https://github.com/DuckyMomo20012/pdfslice-py/commit/4ece9214b68455a912d9d1adf699fbdd2de6ead2))
+
+
+### Documentation
+
+* update documents ([b69c042](https://github.com/DuckyMomo20012/pdfslice-py/commit/b69c042bacda3e86582f1c6dc2e2aa4d06d02823))
+
 ## [1.0.1](https://github.com/DuckyMomo20012/pdfslice-py/compare/v1.0.0...v1.0.1) (2026-09-11)
 
 
