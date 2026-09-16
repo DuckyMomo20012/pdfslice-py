@@ -1,4 +1,4 @@
-"""PDF/image discovery on the filesystem. Direct port of lib/discover.ts."""
+"""PDF/image discovery on the filesystem."""
 
 from __future__ import annotations
 

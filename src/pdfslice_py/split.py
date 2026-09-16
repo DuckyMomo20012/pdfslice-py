@@ -1,9 +1,8 @@
-"""PDF -> per-page JPG splitting. Direct port of lib/split.ts.
+"""PDF -> per-page JPG splitting.
 
-pdf-to-img + sharp (TS) map to pypdfium2 + Pillow here: pypdfium2 (Google's
-PDFium, BSD-licensed — chosen over PyMuPDF's AGPL license for a permissively
-licensed CLI) rasterizes each page at 2x scale (matching pdf-to-img's
-`{ scale: 2 }`), Pillow re-encodes it to JPEG at quality 90.
+pypdfium2 (Google's PDFium, BSD-licensed — chosen over PyMuPDF's AGPL
+license for a permissively licensed CLI) rasterizes each page at 2x scale,
+Pillow re-encodes it to JPEG at quality 90.
 """
 
 from __future__ import annotations
@@ -19,10 +18,10 @@ from pypdf import PdfReader
 from .discover import find_pdfs, page_image_name
 from .filename_template import DEFAULT_TEMPLATE
 from .hash import hash_file
-from .logger import Logger
+from .logger import Logger, create_logger
 from .manifest import Manifest, ManifestImageEntry, write_manifest
 
-_RENDER_SCALE = 2  # ~2x native resolution, matches pdf-to-img's `{ scale: 2 }`
+_RENDER_SCALE = 2  # ~2x native resolution
 _JPEG_QUALITY = 90
 
 
@@ -41,12 +40,21 @@ def _folder_name_for(pdf_path: str | Path) -> str:
 
 def split_all(
     input: str | Path,  # noqa: A002 - mirrors TS `input` option name
-    logger: Logger,
+    logger: Logger | None = None,
     level: int = 1,
     flatten: bool = False,
     template: str = DEFAULT_TEMPLATE,
     dry_run: bool = False,
 ) -> list[SplitResult]:
+    """Split every PDF found under `input` into per-page JPG images.
+
+    `logger` is optional for library use — defaults to a quiet-info
+    `Logger` (see `create_logger`) when not provided. Pass your own to
+    control verbosity or route output through `--verbose`/`--quiet`/
+    `--log-file`, as the CLI does.
+    """
+    if logger is None:
+        logger = create_logger()
     pdfs = find_pdfs(input, level)
     logger.info(f"Found {len(pdfs)} PDF file(s) under {input}", level=level)
 

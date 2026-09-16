@@ -1,4 +1,4 @@
-"""Page-image filename templating. Direct port of lib/filename-template.ts."""
+"""Page-image filename templating."""
 
 from __future__ import annotations
 
